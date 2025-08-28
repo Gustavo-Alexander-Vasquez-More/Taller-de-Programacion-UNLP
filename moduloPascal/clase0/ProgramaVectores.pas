@@ -1,4 +1,4 @@
-//Teniendo en cuenta que el minimo tiene que ser un numero negativo
+//Teniendo en cuenta que el minimo tiene que ser un numero negativo, segun lo que dijeron en clase.
 program ProgramaVectores;
 const dimF=50;
 type
