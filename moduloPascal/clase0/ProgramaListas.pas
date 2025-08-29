@@ -33,11 +33,20 @@ begin
     pri:=pri^.sig;
   end;
 end;
+function BuscarElemento(pri:lista; x:integer):boolean;
+begin
+  while((pri <> nil) AND (pri^.dato <> x)) do
+    pri:=pri^.sig;
+  BuscarElemento:=(pri <> nil); //Retorna true si lo encontŕo y retorna false si nunca lo encontró
+end;
 var
   pri:lista;
+  x:integer;
 begin
   randomize;
   pri:=nil; //Inicializamos la lista en nil para indicar que está vacia la lista
   CargarLista(pri);
   ImprimirLista(pri);
+  writeln('Escribir un numero cualquiera'); readln(x);
+  writeln(BuscarElemento(pri, x));
 end.
