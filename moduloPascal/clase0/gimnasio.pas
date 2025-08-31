@@ -10,7 +10,7 @@ type
     activity:rangeAct;
   end;
   lista=^nodo;
-  nodo=recordar
+  nodo=record
     dato:asistencia;
     sig:lista;
   end;
