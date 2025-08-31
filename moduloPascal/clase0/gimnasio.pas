@@ -24,7 +24,7 @@ begin
   num:=random(501);
   while(num <> 0) do begin
     new(nuevo);
-    writeln('Ingrese el dia'); readln(dia); writeln('ingrese el mes'); readln(mes); writeln('ingrese el año'); readln(anio);  writeln('Ingrese el tipo de actividad'); readln(activity);
+    writeln('Ingrese el dia'); readln(dia); writeln('ingrese el mes'); readln(mes); writeln('ingrese el año'); readln(anio); writeln('Ingrese el tipo de actividad'); readln(activity);
     nuevo^.dato.dia:=dia; nuevo^.dato.mes:=mes; nuevo^.dato.anio:=anio; nuevo^.dato.activity:=activity;
     if() then begin
     
