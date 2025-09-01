@@ -1,3 +1,4 @@
+//Ejercicio introductorio
 program actividad1;
 procedure generarAleatorio();
 begin
