@@ -39,7 +39,10 @@ begin
 end;
 procedure imprimirAlreves(pri:lista);
 begin
-
+  if(pri <> nil) then begin
+    imprimirAlreves(pri^.sig);
+    writeln(pri^.dato);
+  end;
 end;
 var
   pri:lista;
@@ -48,4 +51,5 @@ begin
   pri:=nil;
   generarLista(pri);
   imprimirLista(pri);
+  imprimirAlreves(pri);
 end.
