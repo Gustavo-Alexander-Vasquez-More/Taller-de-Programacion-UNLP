@@ -20,12 +20,14 @@ begin
       pri:=nuevo;
     end;
 end;
-procedure generarLista(var pri:lista; num:rango);
+procedure generarLista(var pri:lista);
+var
+  num:rango;
 begin
+  num:=random(101) + 100;
   if(num <> 100) then begin
 	cargarLista(pri, num);
-    num:=random(101) + 100;
-    generarLista(pri, num);
+    generarLista(pri);
   end;
 end;
 {b. Un módulo recursivo que reciba la lista generada en a) e imprima los valores de la lista en el
@@ -58,18 +60,29 @@ begin
       DevolverMinimo:=pri^.dato;
   end;
 end;
+{e. Implemente un módulo recursivo que reciba la lista generada en a) y un valor y devuelva
+verdadero si dicho valor se encuentra en la lista o falso en caso contrario.}
+function Encontrar(pri: lista; x: integer): boolean;
+begin
+  if pri = nil then
+    Encontrar := false
+  else if pri^.dato = x then
+    Encontrar := true
+  else
+    Encontrar := Encontrar(pri^.sig, x);
+end;
 var
   pri:lista;
-  num:rango;
+  x:integer;
 begin
-
   randomize;
   pri:=nil;
-  num:=random(101) + 100;
-  generarLista(pri, num);
+  generarLista(pri);
   writeln('Datos en orden conforme fueron creados');
   imprimirLista(pri);
   writeln('Datos en orden inverso');
   imprimirAlreves(pri);
   writeln('El valor minimo es: ', DevolverMinimo(pri));
+  writeln('Ingrese un numero'); readln(x);
+  writeln(Encontrar(pri, x));
 end.
