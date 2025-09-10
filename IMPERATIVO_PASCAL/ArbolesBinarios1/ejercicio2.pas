@@ -1,96 +1,148 @@
 program ejercicio2;
+//TIPOS DE DATOS DEFINIDOS POR EL USUARIO
 type
-  {tipos para el primer arbol}
+  //REGISTROS
   venta=record
-    cod:integer;
+    codigo:integer;
     fecha:integer;
-    cant_u_vendidas:integer;
+    cant:integer; //cantidad de unidades vendidas
   end;
-  arbol=^nodo;
-  nodo=record
+  //LISTAS
+  lista=^nodoLista;
+  nodoLista=record
     dato:venta;
-    HI:arbol; //hoja izquierda
-    HD:arbol; //hoja derecha
+    sig:lista;
   end;
-  {tipos para el arbol 2}
-  producto1=record
-    cod:integer;
-    cant_total_vendidas:integer;
+  productoVendido=record
+    codigo:integer;
+    cant:integer; //cantidad total de unidades vendidas
+  end;
+  productoVendido2=record
+    codigo:integer;
+    ventas:lista;
+  end;
+  //ARBOLES
+  arbol1=^nodo1;
+  nodo1=record
+    dato:venta;
+    HI:arbol1;
+    HD:arbol1;
   end;
   arbol2=^nodo2;
   nodo2=record
-    dato:producto1;
+    dato:productoVendido;
     HI:arbol2;
     HD:arbol2;
   end;
-{i. Generar y retornar un árbol binario de búsqueda de ventas ordenado por código de
-producto. Los códigos repetidos van a la derecha.}
-procedure cargarDato(var a:arbol; v:venta);
+  arbol3=^nodo3;
+  nodo3=record
+    dato:productoVendido2;
+    HI:arbol3;
+    HD:arbol3;
+  end;
+//PROCESOS Y FUNCIONES
+procedure cargarArbol1(var a:arbol1; v:venta);
 var
-  nuevo:arbol;
+  nuevo:arbol1;
 begin
-  //necesitamos cargar el arbol con los datos
-  if(a = nil) then begin
-    new(nuevo); nuevo^.dato:=v; nuevo^.HI:=nil; nuevo^.HD:=nil; a := nuevo;
+  if(a = nil)then begin
+    new(nuevo); nuevo^.dato:=v; nuevo^.HI:=nil; nuevo^.HD:=nil; a:=nuevo;
   end
   else begin
-    if(v.cod <= a^.dato.cod) then
-      cargarDato(a^.HD, v)
+    if(v.codigo >= a^.dato.codigo) then //si el codigo es mayor o igual va a la derecha
+      cargarArbol1(a^.HD, v)
     else
-      cargarDato(a^.HI, v);
+      cargarArbol1(a^.HI, v); //sino vamos a la izquierda
   end;
 end;
-procedure generarArbol(var a:arbol);
+procedure generarArbol1(var a:arbol1);
 var
   v:venta;
 begin
-  v.cod:=random(21);
-  if(v.cod <> 0) then begin
-    v.fecha:=random(100); v.cant_u_vendidas:=random(100); //generamos datos aleatorios
-    cargarDato(a, v);
-    generarArbol(a);
+  randomize;
+  v.codigo:=random(21);
+  if(v.codigo <> 0) then begin
+    v.fecha:=random(21); v.cant:=random(21);
+    cargarArbol1(a, v);
+    generarArbol1(a);
   end;
 end;
-{ii. Generar y retornar otro árbol binario de búsqueda de productos vendidos ordenado por
-código de producto. Cada nodo del árbol debe contener el código de producto y la
-cantidad total de unidades vendidas.}
-procedure recorrer_y_sumar(a:arbol);
-var 
-  codProducto, contVentas:integer;
-begin
-  codProducto
-end;
-procedure cargarDatoProducto1(var a:arbol2; p:producto1);
+{arbol 2}
+procedure cargarArbol2(var a:arbol2; codigo, cantidad:integer);
 var nuevo:arbol2;
 begin
   if(a = nil)then begin
-    new(nuevo); nuevo^.dato:=p; nuevo^.HI:=nil; nuevo^.HD:=nil; a:=nuevo;
+    new(nuevo); nuevo^.dato.codigo:=codigo; nuevo^.dato.cant:=cantidad; nuevo^.HI:=nil; nuevo^.HD:=nil; a:=nuevo;
   end
+  else if(codigo = a^.dato.codigo) then
+    a^.dato.cant:=a^.dato.cant + cantidad
   else begin
-    if(p.cod <=a^.dato.cod)then
-      cargarDatoProducto1(a^.HD, p)
+    if(codigo >= a^.dato.codigo) then //si el codigo es mayor o igual va a la derecha
+      cargarArbol2(a^.HD, codigo, cantidad)
     else
-      cargarDatoProducto1(a^.HI, p);
+      cargarArbol2(a^.HI, codigo, cantidad); //sino vamos a la izquierda
   end;
 end;
-procedure generarArbol2(var a:arbol2);
-var
-  p:producto1;
+procedure generarArbol2(a1:Arbol1; var a2:arbol2);
 begin
-  p.cod:=random(21);
-  //necesitamos recorrer el primer arbol e ir acumulando sus ventas
-    
-    cargarDatoProducto1(a, p);
-    generarArbol2(a);
+  //vamos a recorrer e ir agregando los nodos en el arbol2
+  if(a1 <> nil) then begin
+    cargarArbol2(a2, a1^.dato.codigo, a1^.dato.cant);
+    generarArbol2(a1^.HI, a2);
+    generarArbol2(a1^.HD, a2);
   end;
 end;
+{arbol 3}
+procedure agregarVentaALaLista(var l: lista; v: venta);
 var
-  a:arbol;
+  nuevo: lista;
+begin
+  new(nuevo);
+  nuevo^.dato := v;
+  nuevo^.sig := l;
+  l := nuevo;
+end;
+procedure cargarArbol3(var a: arbol3; v: venta);
+var
+  nuevo: arbol3;
+begin
+  if (a = nil) then
+  begin
+    new(nuevo);
+    nuevo^.dato.codigo := v.codigo;
+    nuevo^.dato.ventas := nil;
+    agregarVentaALaLista(nuevo^.dato.ventas, v);
+    nuevo^.HI := nil;
+    nuevo^.HD := nil;
+    a := nuevo;
+  end
+  else if (v.codigo = a^.dato.codigo) then
+    agregarVentaALaLista(a^.dato.ventas, v)
+  else if (v.codigo < a^.dato.codigo) then
+    cargarArbol3(a^.HI, v)
+  else
+    cargarArbol3(a^.HD, v);
+end;
+procedure generarArbol3(a1: arbol1; var a3: arbol3);
+begin
+  if (a1 <> nil) then
+  begin
+    cargarArbol3(a3, a1^.dato);
+    generarArbol3(a1^.HI, a3);
+    generarArbol3(a1^.HD, a3);
+  end;
+end;
+//VARIABLES LOCALES DEL PROGRAMA
+var
+  a1:arbol1;
   a2:arbol2;
+  a3:arbol3;
 begin
   randomize;
-  a:=nil;
+  a1:=nil;
   a2:=nil;
-  generarArbol(a);
-  generarArbol2(a2);
+  a3:=nil;
+  generarArbol1(a1);
+  generarArbol2(a1, a2);
+  generarArbol3(a1, a3);
 end.
