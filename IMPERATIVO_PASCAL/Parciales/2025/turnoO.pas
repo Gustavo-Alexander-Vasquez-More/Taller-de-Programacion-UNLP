@@ -1,4 +1,4 @@
-program turno_o;
+program turnoO;
 type
   rango_dias=1..30;
   rango_meses=1..12;
@@ -127,5 +127,5 @@ begin
   if(verification)then
     writeln('Si se encontró la compra buscada')
   else
-    writeln('El compra que intentas buscar no existe');
+    writeln('La compra que intentas buscar no existe');
 end.
