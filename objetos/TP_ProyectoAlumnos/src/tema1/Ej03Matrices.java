@@ -35,7 +35,7 @@ public class Ej03Matrices {
             System.out.println("La suma de los elementos de la fila 1 de la matriz es: " + sumaFila1);
         //Paso 6. generar un vector de 5 posiciones donde cada posición j contiene la suma de los elementos de la columna j de la matriz. 
         //        Luego, imprima el vector.
-            int [] vector=new int[5];
+           int [] vector=new int[5];
            for (j = 0; j < 5; j++) { // j es la columna
               for (i = 0; i < 5; i++) { // i es la fila
                 vector[j] += matriz[i][j];
