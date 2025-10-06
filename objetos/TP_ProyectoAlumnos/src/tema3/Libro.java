@@ -9,7 +9,7 @@ package tema3;
  */
 public class Libro {
    private String titulo;
-   private String primerAutor; 
+   private Autor primerAutor; 
    private String editorial;
    private int añoEdicion;
    private String ISBN; 
@@ -17,22 +17,22 @@ public class Libro {
      
     
     public Libro(  String unTitulo,  String unaEditorial, 
-    int unAñoEdicion,  String unPrimerAutor, String unISBN, double unPrecio){
-         titulo = unTitulo;
-         editorial = unaEditorial; 
-         añoEdicion= unAñoEdicion;
-         primerAutor = unPrimerAutor;
-         ISBN =  unISBN;
+    int unAñoEdicion,  Autor unPrimerAutor, String unISBN, double unPrecio){
+         this.titulo = unTitulo;
+         this.editorial = unaEditorial; 
+        this. añoEdicion= unAñoEdicion;
+         this.primerAutor = unPrimerAutor;
+         this.ISBN =  unISBN;
          precio = unPrecio;
     }
     
-    public Libro(  String unTitulo,  String unaEditorial, String unPrimerAutor, String unISBN){
-         titulo = unTitulo;
-         editorial = unaEditorial; 
-         añoEdicion= 2015;
-         primerAutor = unPrimerAutor;
-         ISBN =  unISBN;
-         precio = 100;
+    public Libro(  String unTitulo,  String unaEditorial, Autor unPrimerAutor, String unISBN){
+         this.titulo = unTitulo;
+         this.editorial = unaEditorial; 
+         this.añoEdicion= 2015;
+         this.primerAutor = unPrimerAutor;
+         this.ISBN =  unISBN;
+         this.precio = 100;
     }
     
     public Libro(){
@@ -51,7 +51,7 @@ public class Libro {
     }
   
     public String getPrimerAutor(){
-        return primerAutor;
+        return primerAutor.toString();
     } 
     public String getISBN(){
         return ISBN;
@@ -71,7 +71,7 @@ public class Libro {
          añoEdicion = unAño;
     }
    
-    public void setPrimerAutor(String unPrimerAutor){
+    public void setPrimerAutor(Autor unPrimerAutor){
          primerAutor=unPrimerAutor;
     } 
     public void setISBN(String unISBN){
@@ -85,7 +85,7 @@ public class Libro {
    @Override
     public String toString(){
         String aux;
-        aux= titulo + " por " + primerAutor + " - " + añoEdicion + " - " + " ISBN: " + ISBN;
+        aux= titulo + " por " + primerAutor.getNombre() + " - " + añoEdicion + " - " + " ISBN: " + ISBN;
        return ( aux);
     }
         
