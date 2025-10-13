@@ -6,7 +6,7 @@
 package tema2;
 
 
-public class Persona {
+public  class Persona {
     private String nombre;
     private int DNI;
     private int edad; 
@@ -47,7 +47,7 @@ public class Persona {
     
     public String toString(){
         String aux; 
-        aux = "Mi nombre es " + nombre + ", mi DNI es " + DNI + " y tengo " + edad + " años.";
+        aux = "Mi nombre es " + getNombre() + ", mi DNI es " + getDNI() + " y tengo " + getEdad() + " años.";
         return aux;
     }
     
