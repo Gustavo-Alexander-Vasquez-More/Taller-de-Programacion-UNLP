@@ -4,10 +4,6 @@
  */
 package ejercicio1;
 
-/**
- *
- * @author phantomroot
- */
 public class Investigador {
     private String nombre;
     private int categoria;
