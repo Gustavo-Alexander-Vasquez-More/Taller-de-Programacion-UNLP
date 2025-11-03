@@ -1,0 +1,49 @@
+programa ejemplo
+procesos
+  proceso recorrer(E n:numero)
+  comenzar
+    repetir 19
+      mover
+  fin
+areas
+  ciudad1: AreaP(10, 10, 10, 29)
+  ciudad2: AreaP(10, 30, 29, 30)
+  ciudad3: AreaP(30, 11, 30, 30)
+  ciudad4: AreaP(11, 10, 30, 10)
+robots
+  robot robot1
+  comenzar
+    recorrer(1) 
+  fin
+  robot robot2
+  comenzar
+    derecha
+    recorrer(1)
+  fin
+  robot robot3
+  comenzar
+    repetir 2
+      derecha
+    recorrer(1)
+  fin
+  robot robot4
+  comenzar
+    repetir 3
+      derecha
+    recorrer(1)
+  fin
+variables
+  r1: robot1
+  r2: robot2
+  r3: robot3
+  r4: robot4
+comenzar
+  AsignarArea(r1, ciudad1)
+  AsignarArea(r2, ciudad2)
+  AsignarArea(r3, ciudad3)
+  AsignarArea(r4, ciudad4)
+  Iniciar(r1, 10,10)
+  Iniciar(r2, 10, 30)
+  Iniciar(r3, 30, 30)
+  Iniciar(r4, 30, 10)
+fin
