@@ -1,0 +1,70 @@
+programa ejemplo
+procesos
+  proceso limpiarEsquinaFlores
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+  fin
+  proceso limpiarEsquinaPapeles
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+  fin
+  proceso limpiarAvenidaPar
+  comenzar
+    mientras(PosCa < 100)
+      mover
+      limpiarEsquinaPapeles
+    limpiarEsquinaPapeles
+  fin
+  proceso limpiarAvenidaImpar
+  comenzar
+    mientras(PosCa < 100)
+      mover
+      limpiarEsquinaFlores
+    limpiarEsquinaFlores
+  fin
+  proceso limpiarAreaPar
+  comenzar
+    repetir 24
+      limpiarAvenidaPar
+      Pos(PosAv + 1, 1)
+    limpiarAvenidaPar
+  fin
+  proceso limpiarAreaImpar
+  comenzar
+    repetir 24
+      limpiarAvenidaImpar
+      Pos(PosAv + 1, 1)
+    limpiarAvenidaImpar
+  fin
+  
+areas
+  ciudad1: AreaP (1,1,25,100)
+  ciudad2: AreaP (26,1,50,100)
+  ciudad3: AreaP (51,1,75,100)
+  ciudad4: AreaP (76,1,100,100)
+robots
+  robot robot1
+  comenzar
+    limpiarAreaImpar
+    Pos(51,1)
+    limpiarAreaImpar
+  fin
+  robot robot2
+  comenzar
+    limpiarAreaPar
+    Pos(76,1)
+    limpiarAreaPar
+  fin
+variables
+  r1:robot1
+  r2:robot2
+comenzar
+  AsignarArea(r1, ciudad1)
+  AsignarArea(r1, ciudad3)
+  AsignarArea(r2, ciudad2)
+  AsignarArea(r2, ciudad4)
+  Iniciar(r1,1,1)
+  Iniciar(r2,26,1)
+fin
