@@ -1,0 +1,73 @@
+programa ejercicio1C
+procesos
+  proceso juntarFlores(ES f:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      f:=f + 1
+  fin
+
+  proceso recorrerArea(ES f:numero)
+  comenzar
+    repetir 9
+      juntarFlores(f)
+      mover
+    juntarFlores(f)
+  fin
+
+areas
+  ciudad1: AreaP (1,1,1,10)
+  ciudad2: AreaP (2,11,2,20)
+  ciudad3: AreaP (3,21,3,30)
+  ciudad4: AreaP (4,31,4,40)
+  ciudad5: AreaP (5,41,5,50)
+  ciudad6: AreaP (6,51,6,60)
+  ciudad7: AreaP (2,1,2,1)
+
+robots
+  robot robotJuntador
+  variables
+    f:numero
+  comenzar
+    f:=0
+    recorrerArea(f)
+    EnviarMensaje(f, r7)
+  fin
+  robot robotFiscalizador
+  variables
+    max,f:numero
+  comenzar
+    max:=-1
+    repetir 6
+      RecibirMensaje(f,*)
+      si(f > max)
+        max:=f
+    Informar('Cantidad flores ganador ', max)
+  fin
+
+variables
+  r1:robotJuntador
+  r2:robotJuntador
+  r3:robotJuntador
+  r4:robotJuntador
+  r5:robotJuntador
+  r6:robotJuntador
+  r7:robotFiscalizador
+comenzar
+  AsignarArea(r1, ciudad1)
+  AsignarArea(r2, ciudad2)
+  AsignarArea(r3, ciudad3)
+  AsignarArea(r4, ciudad4)
+  AsignarArea(r5, ciudad5)
+  AsignarArea(r6, ciudad6)
+  AsignarArea(r7, ciudad7)
+  {slaves}
+  Iniciar(r1,1,1)
+  Iniciar(r2,2,11)
+  Iniciar(r3,3,21)
+  Iniciar(r4,4,31)
+  Iniciar(r5,5,41)
+  Iniciar(r6,6,51)
+  {robot jefe}
+  Iniciar(r7,2,1)
+fin
