@@ -1,0 +1,118 @@
+programa ejemplo
+procesos
+  proceso juntarFlores(ES f:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      f:=f+1
+  fin
+  proceso juntarPapeles(ES p:numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      p:=p+1
+  fin
+  proceso dejarFlor(E avIniFlo:numero; E caIniFlo:numero)
+  comenzar
+    BloquearEsquina(10,10)
+    Pos(10,10)
+    depositarFlor
+    Pos(avIniFlo, caIniFlo)
+    LiberarEsquina(10,10)
+  fin
+  {proceso que va a la esquina 10,10 para dejar un papel}
+  proceso dejarPapel(E avIniPa:numero; E caIniPa:numero)
+  comenzar
+    BloquearEsquina(10,10)
+    Pos(10,10)
+    depositarPapel
+    Pos(avIniPa, caIniPa)
+    LiberarEsquina(10,10)
+  fin
+  proceso limpiarEsquinaFlorero(E avIniFlo:numero; E caIniFlo:numero; ES f:numero)
+  variables
+    avF:numero
+    caF:numero
+  comenzar
+    Random(avF,1,5)
+    Random(caF,1,10)
+    BloquearEsquina(avF,caF)
+    Pos(avF,caF)
+    juntarFlores(f)
+    Pos(avIniFlo, caIniFlo)
+    LiberarEsquina(avF,caF)
+  fin
+  proceso limpiarEsquinaPapelero(E avIniPa:numero; E caIniPa:numero; ES p:numero)
+  variables
+    avP:numero
+    caP:numero
+  comenzar
+    Random(avP,6,10)
+    Random(caP,1,9)
+    BloquearEsquina(avP,caP)
+    Pos(avP,caP)
+    juntarPapeles(p)
+    Pos(avIniPa, caIniPa)
+    LiberarEsquina(avP,caP)
+  fin
+areas
+  areaPa: AreaPC (6,1,10,9)
+  areaFlo: AreaPC (1,1,5,10)
+  areaFinal: AreaC(10,10,10,10)
+  areaF1: AreaP (6,10,6,10)
+  areaF2: AreaP (7,10,7,10)
+  areaP1: AreaP (8,10,8,10)
+  areaP2: AreaP (9,10,9,10)
+robots
+  robot robotFlo
+  variables
+    avIniFlo:numero
+    caIniFlo:numero
+    f:numero
+  comenzar
+    f:=0
+    avIniFlo:=PosAv
+    caIniFlo:=PosCa
+    repetir 5
+      limpiarEsquinaFlorero(avIniFlo,caIniFlo,f)
+    repetir f
+      dejarFlor(avIniFlo,caIniFlo)
+  fin
+  
+  robot robotPa
+  variables
+    avIniPa:numero
+    caIniPa:numero
+    p:numero
+  comenzar
+    p:=0
+    avIniPa:=PosAv
+    caIniPa:=PosCa
+    repetir 3
+      limpiarEsquinaPapelero(avIniPa,caIniPa,p)
+    repetir p
+      dejarPapel(avIniPa,caIniPa)
+  fin
+variables
+  F1: robotFlo
+  F2: robotFlo
+  P1: robotPa
+  P2: robotPa
+comenzar
+  AsignarArea(F1, areaFlo)
+  AsignarArea(F1, areaF1)
+  AsignarArea(F1, areaFinal)
+  AsignarArea(F2, areaFlo)
+  AsignarArea(F2, areaF2)
+  AsignarArea(F2, areaFinal)
+  AsignarArea(P1, areaPa)
+  AsignarArea(P1, areaP1)
+  AsignarArea(P1, areaFinal)
+  AsignarArea(P2, areaPa)
+  AsignarArea(P2, areaP2)
+  AsignarArea(P2, areaFinal)
+  Iniciar(F1, 6,10)
+  Iniciar(F2, 7,10)
+  Iniciar(P1, 8,10)
+  Iniciar(P2, 9,10)
+fin
