@@ -1,0 +1,159 @@
+programa ejemplo
+procesos
+  proceso juntarF(ES f:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      f:=f+1
+  fin
+  proceso juntarP(ES p:numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      p:=p+1
+  fin
+  proceso hacerEscalonF(E tam:numero; ES f:numero)
+  comenzar
+    repetir tam
+      mover
+    juntarF(f)
+    derecha
+    repetir tam
+      mover
+    repetir 3
+      derecha
+    juntarF(f)
+  fin
+  proceso hacerEscalonP(E tam:numero; ES p:numero)
+  comenzar
+    repetir tam
+      mover
+    juntarP(p)
+    repetir 3
+      derecha
+    repetir tam
+      mover
+    derecha
+    juntarP(p)
+  fin
+  proceso primerRecorridoF(ES f:numero)
+  variables
+    tam:numero
+  comenzar
+    tam:=5
+    repetir 4
+      hacerEscalonF(tam,f)
+      tam:=tam-1
+  fin
+  proceso segundoRecorridoF(ES f:numero)
+  variables
+    tam:numero
+  comenzar
+    tam:=2
+    repetir 4
+      hacerEscalonF(tam,f)
+      tam:=tam+1
+  fin
+  proceso escalonMedioF(E f:numero; E id:numero)
+  comenzar
+    mover
+    juntarF(f)
+    derecha
+    BloquearEsquina(16,16)
+    EnviarMensaje(id,jefe)
+    mover
+    repetir 2
+      derecha
+    mover
+    LiberarEsquina(16,16)
+  fin
+  proceso primerRecorridoP(ES p:numero)
+  variables
+    tam:numero
+  comenzar
+    tam:=5
+    repetir 4
+      hacerEscalonP(tam,p)
+      tam:=tam-1
+  fin
+  proceso segundoRecorridoP(ES p:numero)
+  variables
+    tam:numero
+  comenzar
+    tam:=2
+    repetir 4
+      hacerEscalonP(tam,p)
+      tam:=tam+1
+  fin
+  proceso escalonMedioP(E p:numero; E id:numero)
+  comenzar
+    mover
+    juntarP(p)
+    repetir 3
+      derecha
+    BloquearEsquina(16,16)
+    EnviarMensaje(id,jefe)
+    mover
+    repetir 2
+      derecha
+    mover
+    LiberarEsquina(16,16)
+  fin
+areas
+  ciudad1: AreaC (1,1,15,30)
+  ciudad2:AreaP (17,1,31,30)
+  medio: AreaPC (16,16,16,16)
+robots
+  robot robot1
+  variables
+    f:numero
+    id:numero
+  comenzar
+    f:=0
+    RecibirMensaje(id,jefe)
+    primerRecorridoF(f)
+    escalonMedioF(f,id)
+    segundoRecorridoF(f)
+    Informar('Flores recogidas',f)
+  fin
+  
+  robot robot2
+  variables
+    p:numero
+    id:numero
+  comenzar
+    p:=0
+    RecibirMensaje(id,jefe)
+    primerRecorridoP(p)
+    escalonMedioP(p,id)
+    segundoRecorridoP(p)
+    Informar('Papeles recogidos',p)
+  fin
+  
+  robot robotJefe
+  variables
+    id:numero
+  comenzar
+    EnviarMensaje(1,r1)
+    EnviarMensaje(2,r2)
+    RecibirMensaje(id,*)
+    si(id=1)
+      Informar('Llego primero',1)
+    sino
+      Informar('Llego primero',2)
+    RecibirMensaje(id,*)
+  fin
+variables
+  r1: robot1
+  r2: robot2
+  jefe: robotJefe
+comenzar
+  AsignarArea(r1, ciudad1)
+  AsignarArea(r1,medio)
+  AsignarArea(r2, ciudad2)
+  AsignarArea(r2,medio)
+  AsignarArea(jefe,ciudad1)
+  Iniciar(r1, 1,1)
+  Iniciar(r2,31,1)
+  Iniciar(jefe,15,1)
+fin
